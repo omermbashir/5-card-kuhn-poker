@@ -41,6 +41,7 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 - Update order affects convergence path
 - No abstraction (works for small games only)
 - Slower than modern CFR-based solvers for large games
+- The 3-card game was  solved by hand with infinite equilibria. I found only found one, hoping to try and solve for infinite equilibrium.
 
 
 ## Features
@@ -122,6 +123,7 @@ python kuhn_poker_solver.py --help
 
 ### Basic Usage
 
+In my run I used my best guess of the optimal strategy as a start.  If you want you can use a random start and try and find your own equilibrium.
 Run the solver with default settings:
 
 ```python
@@ -378,4 +380,5 @@ Exploitability: < 0.01 ✓
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
 
 This was a throwback project I did in my free time
+
 
