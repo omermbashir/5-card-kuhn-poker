@@ -37,7 +37,7 @@ The 5-card variant adds complexity to the original 3-card game:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/5-card-kuhn-poker.git
+git clone https://github.com/omermbashir/5-card-kuhn-poker.git
 cd 5-card-kuhn-poker
 
 # Install dependencies
