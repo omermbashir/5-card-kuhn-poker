@@ -6,7 +6,7 @@
 
 > **A game theory solver that finds Nash equilibrium strategies in poker through iterative self-play**
 
-This is my attempt at solving 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01) without using counter factual regret minimizaton. Originally developed for my Master's thesis at University College Dublin (2018).
+This is my attempt at solving 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01) without using counterfactual regret minimizaton. Originally developed for my Master's thesis at University College Dublin (2018).
 
 ## Overview
 
