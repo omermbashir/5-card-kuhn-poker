@@ -1,7 +1,6 @@
 """
 5-Card Kuhn Poker Solver
 Based on "Bot Naurazia" from Omer Bashir's Masters Thesis
-Converts R implementation to Python
 
 This implements an iterative algorithm to approximate Nash equilibrium
 strategies for 5-card Kuhn Poker through self-play.
