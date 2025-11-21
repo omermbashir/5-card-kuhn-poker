@@ -4,9 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-> **Unconventional attempt to find Nash equilibrium strategies in poker through iterative self-play**
+> **A game theory solver that finds Nash equilibrium strategies in poker through iterative self-play**
 
-This is my attempt at solving 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01) without using counterfactual regret minimizaton. Originally developed for my Master's thesis at University College Dublin (2018).
+This is my attempt at solving 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01) without using counter factual regret minimizaton. Originally developed for my Master's thesis at University College Dublin (2018).
 
 ## Overview
 
@@ -24,6 +24,113 @@ The 5-card variant adds complexity to the original 3-card game:
 - **Iterative probability updater** that adjusts strategies through self-play
 - **Equilibrium checker** to validate ε-Nash equilibrium (ε < 0.01)
 - Object-oriented Python design for clarity and extensibility
+
+## Installation
+
+### Requirements
+
+- Python 3.7+
+- NumPy
+- Pandas
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/omermbashir/5-card-kuhn-poker.git
+cd 5-card-kuhn-poker
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Quick Start
+
+### Run the Solver (Find Equilibrium)
+
+```bash
+# This will run for 10-30 minutes and find Nash equilibrium
+python kuhn_poker_solver.py
+```
+
+**What this does:** Runs the full solver with default settings, finds equilibrium strategies, and displays the optimal strategies.
+
+### Test Everything Works (30 seconds)
+
+```bash
+# Quick test to verify installation
+python test_solver.py
+```
+
+**What this does:** Runs automated tests to confirm everything is working correctly.
+
+### Try Custom Strategies (5 minutes)
+
+```bash
+cd examples
+python custom_solver.py
+```
+
+**What this does:** Demonstrates how to use custom starting strategies with detailed output and interpretation.
+
+---
+
+## Usage
+
+### Basic Usage
+
+Run the solver with default settings:
+
+```python
+from kuhn_poker_solver import EquilibriumSolver
+
+# Initialize solver
+solver = EquilibriumSolver(n=5)
+
+# Get default starting strategies
+p1_start, p2_start = solver.strategy_mgr.initialize_default_strategy()
+
+# Run solver
+results = solver.solve(
+    p1_start, p2_start,
+    max_iterations=10000,
+    epsilon=0.0001,
+    check_frequency=100
+)
+
+# Display results
+if results:
+    final = results[-1]
+    print(f"Found equilibrium at iteration {final['iteration']}")
+    print(f"Player 1 EV: {final['ev_player1']:.6f}")
+    print(f"Player 2 EV: {final['ev_player2']:.6f}")
+```
+
+### Command Line
+
+```bash
+python kuhn_poker_solver.py
+```
+
+### Custom Starting Strategies
+
+You can provide custom starting strategies:
+
+```python
+import pandas as pd
+from kuhn_poker_solver import EquilibriumSolver
+
+solver = EquilibriumSolver(n=5)
+
+# Create custom strategy matrices
+p1_custom, p2_custom = solver.strategy_mgr.create_strategy_matrix()
+
+# Set your probabilities
+# ... customize strategies ...
+
+# Run solver
+results = solver.solve(p1_custom, p2_custom)
+```
 
 ## Game Rules
 
@@ -76,6 +183,8 @@ The algorithm typically converges to an ε-Nash equilibrium (ε < 0.01) within s
 ---
 
 ## 🎮 Live Demo & Example Output
+
+**No Python installation required!** See what the solver produces:
 
 ### Example: Equilibrium Strategies Found
 
@@ -223,91 +332,8 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 - No abstraction (works for small games only)
 - Slower than modern CFR-based solvers for large games
 
-## Installation
-
-### Requirements
-
-- Python 3.7+
-- NumPy
-- Pandas
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/omermbashir/5-card-kuhn-poker.git
-cd 5-card-kuhn-poker
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-## Usage
-
-### Basic Usage
-
-Run the solver with default settings:
-
-```python
-from kuhn_poker_solver import EquilibriumSolver
-
-# Initialize solver
-solver = EquilibriumSolver(n=5)
-
-# Get default starting strategies
-p1_start, p2_start = solver.strategy_mgr.initialize_default_strategy()
-
-# Run solver
-results = solver.solve(
-    p1_start, p2_start,
-    max_iterations=10000,
-    epsilon=0.0001,
-    check_frequency=100
-)
-
-# Display results
-if results:
-    final = results[-1]
-    print(f"Found equilibrium at iteration {final['iteration']}")
-    print(f"Player 1 EV: {final['ev_player1']:.6f}")
-    print(f"Player 2 EV: {final['ev_player2']:.6f}")
-```
-
-### Command Line
-
-```bash
-python kuhn_poker_solver.py
-```
-
-### Custom Starting Strategies
-
-You can provide custom starting strategies:
-
-```python
-import pandas as pd
-from kuhn_poker_solver import EquilibriumSolver
-
-solver = EquilibriumSolver(n=5)
-
-# Create custom strategy matrices
-p1_custom, p2_custom = solver.strategy_mgr.create_strategy_matrix()
-
-# Set your probabilities
-# ... customize strategies ...
-
-# Run solver
-results = solver.solve(p1_custom, p2_custom)
-```
-
-## References
-
-- Kuhn, H. W. (1950). "Simplified Two-Person Poker". Contributions to the Theory of Games
-- Bowling et al. (2015). "Heads-up limit hold'em poker is solved". Science
-- Brown & Sandholm (2017). "Superhuman AI for heads-up no-limit poker: Libratus beats top professionals"
-
 ## Original Thesis
 
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
 
 This was a throwback project I did in my free time
-
