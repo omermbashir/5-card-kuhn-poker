@@ -153,8 +153,6 @@ The algorithm typically converges to an ε-Nash equilibrium (ε < 0.01) within s
 
 ## 🎮 Live Demo & Example Output
 
-**No Python installation required!** See what the solver produces:
-
 ### Example: Equilibrium Strategies Found
 
 After ~5,000 iterations, the solver converges to these optimal strategies:
