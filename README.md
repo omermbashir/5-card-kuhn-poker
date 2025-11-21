@@ -6,15 +6,7 @@
 
 > **A game theory solver that finds Nash equilibrium strategies in poker through iterative self-play**
 
-An advanced algorithm implementation that solves 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01). Originally developed for my Master's thesis at University College Dublin (2018), this Python implementation demonstrates expertise in game theory, algorithm design, and mathematical optimization.
-
-## 🎯 Key Highlights
-
-- **Implements complex game theory research in production-ready Python code**
-- **Demonstrates algorithmic thinking** with iterative self-improvement
-- **Applies mathematical optimization** to find Nash equilibria
-- **Production-quality code** with comprehensive testing and documentation
-- **Efficient solver** converging in 10-30 minutes on modern hardware
+This is my attempt at solving 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01) without using counter factual regret minimizaton. Originally developed for my Master's thesis at University College Dublin (2018).
 
 ## Overview
 
@@ -24,35 +16,6 @@ The 5-card variant adds complexity to the original 3-card game:
 - More ambiguous hand rankings
 - Cards can serve multiple strategic roles (value betting, bluffing, bluff-catching)
 - Larger strategy space to explore
-
-## 💼 Skills Demonstrated
-
-This project showcases several key competencies relevant to analytics and data science roles:
-
-### **Technical Skills**
-- **Algorithm Design & Implementation**: Developed iterative optimization algorithm for complex decision-making
-- **Mathematical Modeling**: Applied game theory concepts (Nash equilibrium, expected value calculations)
-- **Python Development**: Object-oriented design with clean, maintainable code architecture
-- **Performance Optimization**: Reduced computation time from 3 weeks to 10-30 minutes
-- **Statistical Analysis**: Probability calculations, strategy evaluation, convergence testing
-
-### **Analytics & Problem-Solving**
-- **Complex Problem Decomposition**: Broke down multi-player game into solvable components
-- **Data-Driven Decision Making**: Iterative strategy improvement based on expected value metrics
-- **Optimization**: Finding optimal strategies in high-dimensional strategy spaces
-- **Quantitative Research**: Translated academic research into practical implementation
-
-### **Software Engineering Best Practices**
-- **Testing & Validation**: Comprehensive test suite for code reliability
-- **Documentation**: Clear, professional documentation for technical and non-technical audiences
-- **Version Control Ready**: Proper project structure with Git best practices
-- **Code Quality**: Type hints, docstrings, clean architecture
-
-### **Business Value**
-- **Research Translation**: Converting academic research into actionable code
-- **Efficiency Gains**: 95%+ reduction in computation time
-- **Scalable Solutions**: Modular design allows for future extensions
-- **Clear Communication**: Documented methodology for stakeholder understanding
 
 ## Features
 
@@ -255,13 +218,6 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 - No abstraction (works for small games only)
 - Slower than modern CFR-based solvers for large games
 
-## Future Work
-
-- Implement Counterfactual Regret Minimization (CFR)
-- Explore multiple equilibria
-- Add raised betting round
-- Extend to 3+ players
-- Add visualization tools
 
 ## References
 
@@ -272,34 +228,4 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 ## Original Thesis
 
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
-
-- **Author**: Omer Bashir
-- **Institution**: University College Dublin
-- **Year**: 2018
-
-## License
-
-MIT License - see LICENSE file for details
-
-## Contributing
-
-Contributions welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
-
-## Contact
-
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-
-## About the Author
-
-**Analytics Manager** with expertise in mathematical modeling, algorithm design, and quantitative analysis. This project demonstrates practical application of game theory concepts, optimization techniques, and professional software development practices. 
-
-Developed as part of a Master's thesis at University College Dublin (2018), this implementation showcases the ability to design and implement sophisticated algorithms with measurable performance characteristics and production-ready code quality.
-
-**Skills Demonstrated:** Python Development, Algorithm Design, Game Theory, Mathematical Optimization, Performance Engineering, Technical Documentation
-
-## Acknowledgments
-
-- Harold Kuhn for inventing Kuhn Poker
-- University College Dublin for academic support
-- The game theory and poker AI research community
+This was a throwback project I did in my free time
