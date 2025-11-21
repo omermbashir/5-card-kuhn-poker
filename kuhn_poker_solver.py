@@ -1,6 +1,7 @@
 """
 5-Card Kuhn Poker Solver
 Based on "Bot Naurazia" from Omer Bashir's Masters Thesis
+Converts R implementation to Python
 
 This implements an iterative algorithm to approximate Nash equilibrium
 strategies for 5-card Kuhn Poker through self-play.
@@ -275,6 +276,81 @@ class StrategyManager:
         
         p2_strat.iloc[3, 1] = 0.79  # Fold with 2
         p2_strat.iloc[2, 1] = 0.21  # Call with 2
+        
+        return p1_strat, p2_strat
+    
+    def initialize_random_strategy(self, seed: int = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        """
+        Initialize with random starting strategies.
+        
+        Args:
+            seed: Random seed for reproducibility (optional)
+            
+        Returns:
+            Tuple of randomly initialized strategy matrices
+        """
+        if seed is not None:
+            np.random.seed(seed)
+        
+        p1_strat, p2_strat = self.create_strategy_matrix()
+        
+        # Player 1 random strategies with constraints
+        for card in range(self.n):
+            # First node: Bet vs Check (rows 0 and 1)
+            if card == 0:
+                # Card 1: Bias toward checking (weak card)
+                p1_strat.iloc[0, card] = np.random.uniform(0.0, 0.5)  # Bet less often
+            elif card == self.n - 1:
+                # Card 5: Bias toward betting (strong card)
+                p1_strat.iloc[0, card] = np.random.uniform(0.5, 1.0)  # Bet more often
+            else:
+                # Middle cards: Random
+                p1_strat.iloc[0, card] = np.random.uniform(0.0, 1.0)
+            
+            p1_strat.iloc[1, card] = 1.0 - p1_strat.iloc[0, card]  # Complement
+            
+            # No folding in first node
+            p1_strat.iloc[2, card] = 0.0
+            
+            # Second node: Call vs Fold (rows 3 and 4)
+            if card == 0:
+                # Card 1: Always fold
+                p1_strat.iloc[3, card] = 1.0
+                p1_strat.iloc[4, card] = 0.0
+            elif card == self.n - 1:
+                # Card 5: Always call
+                p1_strat.iloc[3, card] = 0.0
+                p1_strat.iloc[4, card] = 1.0
+            else:
+                # Middle cards: Random call frequency
+                p1_strat.iloc[4, card] = np.random.uniform(0.0, 1.0)
+                p1_strat.iloc[3, card] = 1.0 - p1_strat.iloc[4, card]
+        
+        # Player 2 random strategies with constraints
+        for card in range(self.n):
+            # Left node: Bet vs Check (rows 0 and 1)
+            if card == self.n - 1:
+                # Card 5: Always bet
+                p2_strat.iloc[0, card] = 1.0
+                p2_strat.iloc[1, card] = 0.0
+            else:
+                # Other cards: Random
+                p2_strat.iloc[0, card] = np.random.uniform(0.0, 1.0)
+                p2_strat.iloc[1, card] = 1.0 - p2_strat.iloc[0, card]
+            
+            # Right node: Call vs Fold (rows 2 and 3)
+            if card == 0:
+                # Card 1: Always fold
+                p2_strat.iloc[2, card] = 0.0
+                p2_strat.iloc[3, card] = 1.0
+            elif card == self.n - 1:
+                # Card 5: Always call
+                p2_strat.iloc[2, card] = 1.0
+                p2_strat.iloc[3, card] = 0.0
+            else:
+                # Middle cards: Random call frequency
+                p2_strat.iloc[2, card] = np.random.uniform(0.0, 1.0)
+                p2_strat.iloc[3, card] = 1.0 - p2_strat.iloc[2, card]
         
         return p1_strat, p2_strat
 
@@ -661,14 +737,46 @@ def main():
     """
     Main function to run the solver.
     """
+    import sys
+    
     print("5-Card Kuhn Poker Solver")
     print("=" * 50)
+    
+    # Check command line arguments for initialization type
+    use_random = False
+    random_seed = None
+    
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "--random":
+            use_random = True
+            print("\nUsing RANDOM starting strategies")
+            if len(sys.argv) > 2:
+                try:
+                    random_seed = int(sys.argv[2])
+                    print(f"Random seed: {random_seed}")
+                except ValueError:
+                    print("Invalid seed, using random seed")
+        elif sys.argv[1] == "--help":
+            print("\nUsage:")
+            print("  python kuhn_poker_solver.py              # Use heuristic starting strategies")
+            print("  python kuhn_poker_solver.py --random     # Use random starting strategies")
+            print("  python kuhn_poker_solver.py --random 42  # Use random with seed 42")
+            print("\nOptions:")
+            print("  --random [seed]  Initialize with random strategies (optional seed for reproducibility)")
+            print("  --help          Show this help message")
+            return None
+    else:
+        print("\nUsing HEURISTIC starting strategies (based on poker intuition)")
+        print("Tip: Use --random for random initialization, or --help for options")
     
     # Initialize solver
     solver = EquilibriumSolver(n=5)
     
-    # Get default starting strategies
-    p1_start, p2_start = solver.strategy_mgr.initialize_default_strategy()
+    # Get starting strategies based on user choice
+    if use_random:
+        p1_start, p2_start = solver.strategy_mgr.initialize_random_strategy(seed=random_seed)
+    else:
+        p1_start, p2_start = solver.strategy_mgr.initialize_default_strategy()
     
     # Run solver
     print("\nStarting solver...")
