@@ -149,10 +149,6 @@ The solver uses an iterative self-improvement algorithm:
 
 The algorithm typically converges to an ε-Nash equilibrium (ε < 0.01) within several thousand iterations.
 
-# 📊 DEMO SECTION - ADD THIS TO YOUR README
-
-Add this section after the "Results" section in your README.md:
-
 ---
 
 ## 🎮 Live Demo & Example Output
