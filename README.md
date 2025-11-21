@@ -49,11 +49,22 @@ pip install -r requirements.txt
 ### Run the Solver (Find Equilibrium)
 
 ```bash
-# This will run for 10-30 minutes and find Nash equilibrium
+# Run with intelligent heuristic starting strategies (recommended)
 python kuhn_poker_solver.py
+
+# OR run with random starting strategies
+python kuhn_poker_solver.py --random
+
+# OR run with random strategies using a specific seed (reproducible)
+python kuhn_poker_solver.py --random 42
 ```
 
-**What this does:** Runs the full solver with default settings, finds equilibrium strategies, and displays the optimal strategies.
+**What this does:** Runs the full solver, finds equilibrium strategies, and displays the optimal strategies.
+
+**Options:**
+- **Default (no flags)**: Uses intelligent starting strategies based on poker heuristics
+- **`--random`**: Initializes with random starting strategies (different result each run)
+- **`--random [seed]`**: Random initialization with specific seed for reproducibility
 
 ### Test Everything Works (30 seconds)
 
@@ -72,6 +83,12 @@ python custom_solver.py
 ```
 
 **What this does:** Demonstrates how to use custom starting strategies with detailed output and interpretation.
+
+### See All Options
+
+```bash
+python kuhn_poker_solver.py --help
+```
 
 ---
 
@@ -109,7 +126,37 @@ if results:
 ### Command Line
 
 ```bash
+# Run with heuristic starting strategies (default)
 python kuhn_poker_solver.py
+
+# Run with random starting strategies
+python kuhn_poker_solver.py --random
+
+# Run with random strategies and specific seed
+python kuhn_poker_solver.py --random 42
+
+# See all options
+python kuhn_poker_solver.py --help
+```
+
+### Using Random Initialization in Code
+
+```python
+from kuhn_poker_solver import EquilibriumSolver
+
+solver = EquilibriumSolver(n=5)
+
+# Option 1: Heuristic starting strategies (recommended)
+p1_start, p2_start = solver.strategy_mgr.initialize_default_strategy()
+
+# Option 2: Random starting strategies
+p1_start, p2_start = solver.strategy_mgr.initialize_random_strategy()
+
+# Option 3: Random with seed (reproducible)
+p1_start, p2_start = solver.strategy_mgr.initialize_random_strategy(seed=42)
+
+# Run solver
+results = solver.solve(p1_start, p2_start)
 ```
 
 ### Custom Starting Strategies
@@ -331,6 +378,12 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 - Update order affects convergence path
 - No abstraction (works for small games only)
 - Slower than modern CFR-based solvers for large games
+
+## References
+
+- Kuhn, H. W. (1950). "Simplified Two-Person Poker". Contributions to the Theory of Games
+- Bowling et al. (2015). "Heads-up limit hold'em poker is solved". Science
+- Brown & Sandholm (2017). "Superhuman AI for heads-up no-limit poker: Libratus beats top professionals"
 
 ## Original Thesis
 
