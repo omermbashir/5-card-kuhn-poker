@@ -17,6 +17,32 @@ The 5-card variant adds complexity to the original 3-card game:
 - Cards can serve multiple strategic roles (value betting, bluffing, bluff-catching)
 - Larger strategy space to explore
 
+- 
+## Theory
+
+### Nash Equilibrium
+
+A Nash equilibrium is a strategy profile where no player can improve their payoff by unilaterally changing their strategy. In 2-player zero-sum games like Kuhn Poker, this represents the optimal strategy where neither player can be exploited.
+
+### ε-Nash Equilibrium
+
+An ε-Nash equilibrium is an approximation where no player can improve their payoff by more than ε by deviating. For this implementation, ε = 0.01 units per hand is the convergence criterion.
+
+### Why 5 Cards?
+
+The 3-card version has strict hand rankings (weak, medium, strong) making equilibrium strategies simple. The 5-card version introduces:
+- Ambiguous middle cards (2, 3, 4)
+- Cards that can both value bet and bluff
+- More realistic poker dynamics
+
+## Limitations
+
+- Algorithm finds a single equilibrium (may not explore all equilibria)
+- Update order affects convergence path
+- No abstraction (works for small games only)
+- Slower than modern CFR-based solvers for large games
+
+
 ## Features
 
 - **Complete game engine** for 5-card Kuhn Poker
@@ -313,20 +339,6 @@ EVs: P1=-0.0316, P2=0.0316
 Exploitability: < 0.01 ✓
 ```
 
-### What This Means
-
-**Game Theory in Action:**
-- Both players achieve Nash equilibrium - neither can improve by changing strategy alone
-- Player 2 has a slight advantage (+0.0316 units/hand) due to positional advantage
-- Strategies are "balanced" - using both strong and weak hands for each action
-- Bluffing frequency is optimal - based on pot odds mathematics
-
-**Real-World Applications:**
-- **Negotiation**: Balance between aggressive and passive strategies
-- **Pricing**: Mix of high and low prices to maximize revenue
-- **Resource Allocation**: Optimal distribution under uncertainty
-- **Risk Management**: Hedging strategies in competitive scenarios
-
 ---
 
 ## Performance
@@ -355,30 +367,6 @@ Exploitability: < 0.01 ✓
     └── custom_solver.py    # Example usage scripts
 ```
 
-## Theory
-
-### Nash Equilibrium
-
-A Nash equilibrium is a strategy profile where no player can improve their payoff by unilaterally changing their strategy. In 2-player zero-sum games like Kuhn Poker, this represents the optimal strategy where neither player can be exploited.
-
-### ε-Nash Equilibrium
-
-An ε-Nash equilibrium is an approximation where no player can improve their payoff by more than ε by deviating. For this implementation, ε = 0.01 units per hand is the convergence criterion.
-
-### Why 5 Cards?
-
-The 3-card version has strict hand rankings (weak, medium, strong) making equilibrium strategies simple. The 5-card version introduces:
-- Ambiguous middle cards (2, 3, 4)
-- Cards that can both value bet and bluff
-- More realistic poker dynamics
-
-## Limitations
-
-- Algorithm finds a single equilibrium (may not explore all equilibria)
-- Update order affects convergence path
-- No abstraction (works for small games only)
-- Slower than modern CFR-based solvers for large games
-
 ## References
 
 - Kuhn, H. W. (1950). "Simplified Two-Person Poker". Contributions to the Theory of Games
@@ -390,3 +378,4 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
 
 This was a throwback project I did in my free time
+
