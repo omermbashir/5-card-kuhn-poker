@@ -185,6 +185,46 @@ After ~5,000 iterations, the solver converges to these optimal strategies:
 | 4 | 0% | 100% | 100% | 0% |
 | 5 (best) | 0% | 100% | 100% | 0% |
 
+## Results
+
+The algorithm typically converges to an ε-Nash equilibrium (ε < 0.01) within several thousand iterations.
+
+---
+
+## 🎮 Live Demo & Example Output
+
+**No Python installation required!** See what the solver produces:
+
+### Example: Equilibrium Strategies Found
+
+After ~5,000 iterations, the solver converges to these optimal strategies:
+
+#### **Player 1 Equilibrium Strategy**
+
+| Card | Bet % | Check % | Call (if bet) % | Fold (if bet) % |
+|------|-------|---------|-----------------|-----------------|
+| 1 (worst) | 66% | 34% | 0% | 100% |
+| 2 | 100% | 0% | 13% | 87% |
+| 3 | 100% | 0% | 87% | 13% |
+| 4 | 44% | 56% | 100% | 0% |
+| 5 (best) | 46% | 54% | 100% | 0% |
+
+**Key Insights:**
+- **Bluffing with card 1**: Bets 66% of the time to apply pressure
+- **Value betting cards 2-5**: Mostly betting for value
+- **Balancing card 4-5**: Mixes betting and checking to stay unpredictable
+- **Smart calling**: Only calls with decent hands (3-5)
+
+#### **Player 2 Equilibrium Strategy**
+
+| Card | Bet % (after P1 checks) | Check % | Call (if P1 bets) % | Fold % |
+|------|------------------------|---------|---------------------|--------|
+| 1 (worst) | 24% | 76% | 0% | 100% |
+| 2 | 100% | 0% | 14% | 86% |
+| 3 | 100% | 0% | 63% | 37% |
+| 4 | 0% | 100% | 100% | 0% |
+| 5 (best) | 0% | 100% | 100% | 0% |
+
 **Key Insights:**
 - **Bluffing with card 1**: Occasionally bets (24%) when Player 1 checks
 - **Aggressive with 2-3**: Always bets when given the opportunity
@@ -192,7 +232,6 @@ After ~5,000 iterations, the solver converges to these optimal strategies:
 - **Calling appropriately**: Calls based on hand strength and pot odds
 
 ### Sample Solver Output
-
 ```
 5-Card Kuhn Poker Solver
 ==================================================
@@ -251,11 +290,13 @@ Exploitability: < 0.01 ✓
 
 ---
 
----
+## Performance
 
-## 📈 Performance Benchmarks
+**Convergence:** 5,000-10,000 iterations (10-30 minutes on modern hardware)
+**Accuracy:** ε < 0.01 (exploitability < 1 cent per $1 pot)
+**Memory:** < 100MB (lightweight, scalable)
 
-Tested on various hardware configurations:
+### Benchmarks Across Hardware
 
 | Hardware | Iterations | Time | Memory |
 |----------|-----------|------|--------|
@@ -263,46 +304,7 @@ Tested on various hardware configurations:
 | Intel i7 Desktop | 10,000 | 18 min | 52 MB |
 | Cloud VM (2 cores) | 10,000 | 25 min | 38 MB |
 
-**Convergence typically occurs between 5,000-10,000 iterations**
-
----
-
-
-### **Performance Metrics**
-- **Convergence Time**: 5,000-10,000 iterations (10-30 minutes on modern hardware)
-- **Accuracy**: ε < 0.01 units per hand (exploitability < 1 cent per $1 pot)
-- **Memory Usage**: < 100MB (lightweight, scalable)
-- **Code Quality**: Object-oriented design with comprehensive testing and documentation
-
-### **Strategic Insights**
-
-Key findings from the original thesis:
-- The 5-card equilibrium is largely similar to the 3-card version
-- Both players use mixed strategies (probabilistic actions)
-- Strategies exhibit core poker concepts:
-  - **Value betting**: Betting strong hands for value
-  - **Bluffing**: Betting weak hands to fold out better hands
-  - **Bluff-catching**: Calling with medium hands against possible bluffs
-  - **Balance**: Mixing actions to remain unexploitable
-
-### Example Equilibrium Strategy
-
-Player 1 with card 3 (middle card):
-- Bet 51% of the time
-- Check 49% of the time
-- If facing a bet: call 49%, fold 51%
-
-This ensures the opponent cannot exploit by always betting or always checking.
-
-## Performance
-
-- **Runtime**: Convergence typically within 10,000 iterations (~10-30 minutes on modern hardware)
-- **Memory**: Minimal (< 100MB)
-- **Accuracy**: ε < 0.01 (exploitability less than 0.01 units per hand)
-- **Scalability**: Modular design allows extension to larger game variants
-
 ## Project Structure
-
 ```
 5-card-kuhn-poker/
 ├── kuhn_poker_solver.py    # Main solver implementation
@@ -337,7 +339,6 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 - No abstraction (works for small games only)
 - Slower than modern CFR-based solvers for large games
 
-
 ## References
 
 - Kuhn, H. W. (1950). "Simplified Two-Person Poker". Contributions to the Theory of Games
@@ -347,4 +348,5 @@ The 3-card version has strict hand rankings (weak, medium, strong) making equili
 ## Original Thesis
 
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
+
 This was a throwback project I did in my free time
