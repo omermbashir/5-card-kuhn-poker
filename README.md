@@ -76,7 +76,7 @@ pip install -r requirements.txt
 ### Run the Solver (Find Equilibrium)
 
 ```bash
-# Run with intelligent heuristic starting strategies (recommended)
+# Run with imy starting strategies
 python kuhn_poker_solver.py
 
 # OR run with random starting strategies
@@ -380,5 +380,6 @@ Exploitability: < 0.01 ✓
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
 
 This was a throwback project I did in my free time
+
 
 
