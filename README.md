@@ -185,46 +185,6 @@ After ~5,000 iterations, the solver converges to these optimal strategies:
 | 4 | 0% | 100% | 100% | 0% |
 | 5 (best) | 0% | 100% | 100% | 0% |
 
-## Results
-
-The algorithm typically converges to an ε-Nash equilibrium (ε < 0.01) within several thousand iterations.
-
----
-
-## 🎮 Live Demo & Example Output
-
-**No Python installation required!** See what the solver produces:
-
-### Example: Equilibrium Strategies Found
-
-After ~5,000 iterations, the solver converges to these optimal strategies:
-
-#### **Player 1 Equilibrium Strategy**
-
-| Card | Bet % | Check % | Call (if bet) % | Fold (if bet) % |
-|------|-------|---------|-----------------|-----------------|
-| 1 (worst) | 66% | 34% | 0% | 100% |
-| 2 | 100% | 0% | 13% | 87% |
-| 3 | 100% | 0% | 87% | 13% |
-| 4 | 44% | 56% | 100% | 0% |
-| 5 (best) | 46% | 54% | 100% | 0% |
-
-**Key Insights:**
-- **Bluffing with card 1**: Bets 66% of the time to apply pressure
-- **Value betting cards 2-5**: Mostly betting for value
-- **Balancing card 4-5**: Mixes betting and checking to stay unpredictable
-- **Smart calling**: Only calls with decent hands (3-5)
-
-#### **Player 2 Equilibrium Strategy**
-
-| Card | Bet % (after P1 checks) | Check % | Call (if P1 bets) % | Fold % |
-|------|------------------------|---------|---------------------|--------|
-| 1 (worst) | 24% | 76% | 0% | 100% |
-| 2 | 100% | 0% | 14% | 86% |
-| 3 | 100% | 0% | 63% | 37% |
-| 4 | 0% | 100% | 100% | 0% |
-| 5 (best) | 0% | 100% | 100% | 0% |
-
 **Key Insights:**
 - **Bluffing with card 1**: Occasionally bets (24%) when Player 1 checks
 - **Aggressive with 2-3**: Always bets when given the opportunity
@@ -232,6 +192,7 @@ After ~5,000 iterations, the solver converges to these optimal strategies:
 - **Calling appropriately**: Calls based on hand strength and pot odds
 
 ### Sample Solver Output
+
 ```
 5-Card Kuhn Poker Solver
 ==================================================
@@ -292,8 +253,8 @@ Exploitability: < 0.01 ✓
 
 ## Performance
 
-**Convergence:** 5,000-10,000 iterations (10-30 minutes on modern hardware)
-**Accuracy:** ε < 0.01 (exploitability < 1 cent per $1 pot)
+**Convergence:** 5,000-10,000 iterations (10-30 minutes on modern hardware)  
+**Accuracy:** ε < 0.01 (exploitability < 1 cent per $1 pot)  
 **Memory:** < 100MB (lightweight, scalable)
 
 ### Benchmarks Across Hardware
@@ -305,6 +266,7 @@ Exploitability: < 0.01 ✓
 | Cloud VM (2 cores) | 10,000 | 25 min | 38 MB |
 
 ## Project Structure
+
 ```
 5-card-kuhn-poker/
 ├── kuhn_poker_solver.py    # Main solver implementation
