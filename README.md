@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-> **A game theory solver that finds Nash equilibrium strategies in poker through iterative self-play**
+> **Unconventional attempt to find Nash equilibrium strategies in poker through iterative self-play**
 
 This is my attempt at solving 5-card Kuhn Poker for ε-Nash equilibrium (ε < 0.01) without using counterfactual regret minimizaton. Originally developed for my Master's thesis at University College Dublin (2018).
 
@@ -310,3 +310,4 @@ results = solver.solve(p1_custom, p2_custom)
 This code is based on my Master's thesis: **"Epsilon Equilibrium in 5-Card Kuhn Poker"** (2018)
 
 This was a throwback project I did in my free time
+
