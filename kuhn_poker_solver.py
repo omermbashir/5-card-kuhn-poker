@@ -1,7 +1,6 @@
 """
 5-Card Kuhn Poker Solver
 Based on "Bot Naurazia" from Omer Bashir's Masters Thesis
-Converts R implementation to Python
 
 This implements an iterative algorithm to approximate Nash equilibrium
 strategies for 5-card Kuhn Poker through self-play.
@@ -570,7 +569,7 @@ class EquilibriumSolver:
         
     def solve(self, p1_start: pd.DataFrame, p2_start: pd.DataFrame,
              max_iterations: int = 10000, epsilon: float = 0.0001,
-             check_frequency: int = 100) -> List[Dict[str, Any]]:
+             check_frequency: int = 100, max_equilibria: int = 3) -> List[Dict[str, Any]]:
         """
         Run the equilibrium solver.
         
@@ -578,6 +577,7 @@ class EquilibriumSolver:
             p1_start: Initial strategy for Player 1
             p2_start: Initial strategy for Player 2
             max_iterations: Maximum solver iterations
+            max_equilibria: Maximum equilibria before stopping
             epsilon: Update step size
             check_frequency: How often to check for equilibrium
             
@@ -618,7 +618,7 @@ class EquilibriumSolver:
             
             # Update Player 2
             print("Updating Player 2...")
-            for hand in range(4):  # Cards 1-4 (card 5 is fixed)
+            for hand in range(4):  # Cards 1-4 (card 5 is fixed)python kuhn_poker_solver.py
                 for action in [0, 2]:  # Bet/Check and Call/Fold rows
                     if hand == 0 and action == 2:  # Don't update call with card 1
                         continue
@@ -669,7 +669,7 @@ class EquilibriumSolver:
                     })
                     
                     equilibria_found += 1
-                    if equilibria_found >= 3:  # Stop after finding 3 equilibria
+                    if equilibria_found >= max_equilibria:  # Stop after finding n equilibria
                         break
             
             counter += 1
@@ -783,6 +783,7 @@ def main():
     results = solver.solve(
         p1_start, p2_start,
         max_iterations=10000,
+        max_equilibria=3,
         epsilon=0.0001,
         check_frequency=100
     )
