@@ -618,7 +618,7 @@ class EquilibriumSolver:
             
             # Update Player 2
             print("Updating Player 2...")
-            for hand in range(4):  # Cards 1-4 (card 5 is fixed)python kuhn_poker_solver.py
+            for hand in range(4):  # Cards 1-4 (card 5 is fixed)
                 for action in [0, 2]:  # Bet/Check and Call/Fold rows
                     if hand == 0 and action == 2:  # Don't update call with card 1
                         continue
